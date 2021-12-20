@@ -10,7 +10,22 @@
         <applicationService serviceImplementation="com.github.davidyzliu.pytapycharmplugin.services.MyApplicationService"/>
         <projectService serviceImplementation="com.github.davidyzliu.pytapycharmplugin.services.MyProjectService"/>
         <projectConfigurable parentId="tools" instance="com.github.davidyzliu.pytapycharmplugin.extensions.PythonTAConfigurable"/>
+        <toolWindow id="PythonTA"
+                    factoryClass="com.github.davidyzliu.pytapycharmplugin.toolwindow.ReportToolWindowFactory"
+                    anchor="bottom"
+        />
     </extensions>
+
+    <actions>
+        <action class="com.github.davidyzliu.pytapycharmplugin.actions.ScanAction"
+                description="Perform a PythonTA scan on current file"
+                icon="AllIcons.Actions.Execute"
+                id="pyta_scan_file_action"
+                text="Scan File with PythonTA">
+            <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+            <add-to-group group-id="ProjectViewPopupMenu" anchor="last"/>
+        </action>
+    </actions>
 
     <applicationListeners>
         <listener class="com.github.davidyzliu.pytapycharmplugin.listeners.MyProjectManagerListener"
