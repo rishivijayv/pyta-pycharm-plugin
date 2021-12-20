@@ -16,4 +16,17 @@
         <listener class="com.github.davidyzliu.pytapycharmplugin.listeners.MyProjectManagerListener"
                   topic="com.intellij.openapi.project.ProjectManagerListener"/>
     </applicationListeners>
+
+    <actions>
+        <action class="com.github.davidyzliu.pytapycharmplugin.actions.ScanFileAction"
+                description="Perform a PythonTA scan on current file"
+                icon="AllIcons.Actions.Execute"
+                id="pyta_scan_file_action"
+                text="Scan File with PythonTA">
+            <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+            <add-to-group group-id="ProjectViewPopupMenu" anchor="last"/>
+            <add-to-group group-id="CodeMenu" anchor="last" />
+        </action>
+    </actions>
+
 </idea-plugin>
