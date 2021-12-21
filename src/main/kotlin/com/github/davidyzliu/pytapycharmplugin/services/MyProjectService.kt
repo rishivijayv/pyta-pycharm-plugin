@@ -1,6 +1,5 @@
 package com.github.davidyzliu.pytapycharmplugin.services
 
-import com.github.davidyzliu.pytapycharmplugin.MyBundle
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.roots.ProjectRootManager
 
@@ -27,5 +26,4 @@ class MyProjectService(project: Project) {
     fun setPythonSDKPath(value: String) {
         selectedPythonSDKPath = value
     }
-
 }

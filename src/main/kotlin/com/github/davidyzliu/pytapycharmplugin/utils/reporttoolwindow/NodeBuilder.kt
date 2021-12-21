@@ -2,7 +2,6 @@ package com.github.davidyzliu.pytapycharmplugin.utils.reporttoolwindow
 
 import javax.swing.tree.DefaultMutableTreeNode
 
-
 /**
  * Responsible for creating leaf and non-leaf nodes in a DefaultMutableTreeNode tree.
  * **/
@@ -46,5 +45,4 @@ class NodeBuilder(nodeContent: String, init: NodeBuilder.() -> Unit) : Builder {
         val node = NodeBuilder(content, init)
         add(node)
     }
-
 }

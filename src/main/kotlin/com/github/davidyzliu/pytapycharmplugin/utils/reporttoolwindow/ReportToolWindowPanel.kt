@@ -6,7 +6,6 @@ import com.intellij.openapi.ui.DialogPanel
 import com.intellij.ui.layout.panel
 import com.intellij.ui.treeStructure.Tree
 
-
 /**
  * Represents the Report Panel in the Tool Window for PythonTA.
  *
@@ -20,7 +19,7 @@ class ReportToolWindowPanel {
     init {
         toolWindowPanel = panel {
             row {
-                tree("No report loaded...") {} ()
+                tree("No report loaded...") {}()
             }
         }
     }
@@ -65,5 +64,4 @@ class ReportToolWindowPanel {
                 }
         }
     }
-
 }
