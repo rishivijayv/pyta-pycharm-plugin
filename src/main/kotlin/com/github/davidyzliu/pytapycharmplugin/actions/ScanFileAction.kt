@@ -27,7 +27,6 @@ class ScanFileAction : AnAction() {
      * */
     override fun actionPerformed(e: AnActionEvent) {
 
-//        var selectedFile: VirtualFile? = null
         val selectedFilePath: String?
 
         // Project guaranteed to exist because of update()
