@@ -28,7 +28,4 @@ class MyProjectService(project: Project) {
         selectedPythonSDKPath = value
     }
 
-    init {
-        println(MyBundle.message("projectService", project.name))
-    }
 }
