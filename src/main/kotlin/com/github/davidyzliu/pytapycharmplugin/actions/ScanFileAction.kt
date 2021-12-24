@@ -9,11 +9,14 @@ import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.PlatformDataKeys
 import com.intellij.openapi.components.service
+import com.intellij.openapi.fileEditor.FileDocumentManager
+import com.intellij.openapi.fileEditor.FileEditorManager
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.openapi.wm.ToolWindow
 import com.intellij.openapi.wm.ToolWindowManager
 import com.intellij.ui.content.ContentManager
+import org.jetbrains.annotations.NonNls
 
 /**
  * Represents an IDE action in which a *single* file is scanned using PythonTA
@@ -27,12 +30,12 @@ class ScanFileAction : AnAction() {
      * */
     override fun actionPerformed(e: AnActionEvent) {
 
-        val selectedFilePath: String?
+        var selectedFile: VirtualFile? = null
+        var selectedFilePath: @NonNls String? = null
 
         // Project guaranteed to exist because of update()
         val selectedProject: Project = PlatformDataKeys.PROJECT.getData(e.dataContext)!!
         val pytaPath: String = selectedProject.service<MyProjectService>().getPythonSDKPath()
-        val selectedFile: VirtualFile? = PlatformDataKeys.VIRTUAL_FILE.getData(e.dataContext)
 
         val toolWindow: ToolWindow = ToolWindowManager
             .getInstance(selectedProject)
@@ -44,6 +47,12 @@ class ScanFileAction : AnAction() {
 
         val reportToolWindow = ReportToolWindowPanel()
 
+        val selectedTextEditor = selectedProject.let { FileEditorManager.getInstance(it).selectedTextEditor }
+
+        if (selectedTextEditor != null) {
+            selectedFile = FileDocumentManager.getInstance().getFile(selectedTextEditor.document)
+        }
+
         if (selectedFile != null) {
             selectedFilePath = selectedFile.path
         } else {
@@ -52,9 +61,11 @@ class ScanFileAction : AnAction() {
             return
         }
 
-        val result: String = ScanUtil.scan(pytaPath, selectedFilePath)
-        reportToolWindow.addIssuesToPanel(PytaPluginUtils.parsePytaOutputString(result))
-        addContentToToolWindow(toolWindowContentManager, reportToolWindow)
+        if (selectedFilePath != null) {
+            val result: String = ScanUtil.scan(pytaPath, selectedFilePath)
+            reportToolWindow.addIssuesToPanel(PytaPluginUtils.parsePytaOutputString(result))
+            addContentToToolWindow(toolWindowContentManager, reportToolWindow)
+        }
     }
 
     /**
